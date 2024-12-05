@@ -28,7 +28,7 @@
 ### Требования к итоговой работе
 1. Ноутбук с решением кейса с помощью технологического стека
 2. Презентация + питч
-3. Сабмит на Kaggle
+3. [Сабмит на Kaggle](https://www.kaggle.com/competitions/cryptonite-hack-sf)
 
 ### Ресурсы и материалы
 1. [Paper "Emotion Classification in Short English Texts using Deep Learning Techniques"](https://arxiv.org/abs/2402.16034)
