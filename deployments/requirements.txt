@@ -1,0 +1,7 @@
+torch
+click
+ovmsclient
+numpy
+transformers
+requests
+scipy

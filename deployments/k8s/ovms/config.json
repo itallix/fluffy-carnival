@@ -1,0 +1,16 @@
+{
+    "model_config_list": [
+        {
+            "config": {
+                "name": "emotion-classifier",
+                "base_path": "s3://models/emotion-classifier",
+                "model_version_policy": {
+                    "all": {}
+                },
+                "plugin_config": {
+                    "PERFORMANCE_HINT": "LATENCY"
+                }
+            }
+        }
+    ]
+}

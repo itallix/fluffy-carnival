@@ -1,0 +1,159 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ovms-config
+data:
+  config.json: |
+    {
+      "model_config_list": [
+        {
+          "config": {
+            "name": "emotion_classifier",
+            "base_path": "s3://models/emotion-classifier",
+            "model_version_policy": {"all": {}},
+            "plugin_config": {"PERFORMANCE_HINT": "LATENCY"}
+          }
+        }
+      ],
+      "mediapipe_config_list": [],
+      "monitoring":
+        {
+          "metrics": {
+            "enable" : true            
+          }
+        }
+    }
+  graph_config.pbtxt: |
+    input_stream: "OVMS_PY_TENSOR:text"
+    output_stream: "OVMS_PY_TENSOR:sentiment"
+    node {
+      name: "pythonNode"
+      calculator: "PythonExecutorCalculator"
+      input_side_packet: "PYTHON_NODE_RESOURCES:py"
+      input_stream: "INPUT:text"
+      output_stream: "OUTPUT:sentiment"
+      node_options: {
+        [type.googleapis.com / mediapipe.PythonExecutorCalculatorOptions]: {
+          handler_path: "model.py"
+        }
+      }
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ovms-emotion
+  labels:
+    app: ovms-emotion
+spec:
+  ports:
+  - port: 8080
+    name: http
+    targetPort: http
+  - port: 9000
+    name: grpc
+    targetPort: grpc
+  selector:
+    app: ovms-emotion
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ovms-emotion
+  labels:
+    app: ovms-emotion
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ovms-emotion
+  template:
+    metadata:
+      labels:
+        app: ovms-emotion
+    spec:
+      containers:
+      - name: ovms
+        image: openvino/model_server:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 9000
+          name: grpc
+        resources:
+          requests:
+            cpu: "1"
+            memory: "2Gi"
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+        volumeMounts:
+        - name: ovms-config
+          mountPath: /config.json
+          subPath: config.json
+        - name: ovms-config
+          mountPath: /graph_config.pbtxt
+          subPath: graph_config.pbtxt
+        env:
+        - name: LOG_LEVEL
+          value: "DEBUG"
+        - name: CONFIG_PATH
+          value: "/config.json"
+        - name: AWS_ACCESS_KEY_ID
+          value: "superadmin" # todo: move to secret
+        - name: AWS_SECRET_ACCESS_KEY
+          value: "superadmin" # todo: move to secret
+        - name: S3_ENDPOINT
+          value: "http://minio:9000"
+        - name: S3_USE_HTTPS
+          value: "0"
+        - name: S3_VERIFY_SSL
+          value: "0"
+        - name: MEDIAPIPE_GRAPH
+          value: "/graph_config.pbtxt"
+        command:
+        - /ovms/bin/ovms
+        - --config_path
+        - /config.json
+        - --port
+        - "9000"
+        - --rest_port
+        - "8080"
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 8080
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 10
+        # readinessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 8080
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 10
+      volumes:
+      - name: ovms-config
+        configMap:
+          name: ovms-config
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ovms-emotion-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ovms-emotion
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
