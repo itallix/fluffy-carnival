@@ -4,7 +4,7 @@
 
 2. Тестирование *baseline* решения - [emotion_classification_baseline.ipynb](https://github.com/itallix/fluffy-carnival/blob/main/notebooks/emotion_classification_baseline.ipynb)
 
-3. Тестирование T5 моделия на оригинальном датасете - [emotion_classification_t5.ipynb](https://github.com/itallix/fluffy-carnival/blob/main/notebooks/emotion_classification_t5.ipynb):
+3. Тестирование T5 модели на оригинальном датасете - [emotion_classification_t5.ipynb](https://github.com/itallix/fluffy-carnival/blob/main/notebooks/emotion_classification_t5.ipynb):
 
     Захотелось уйти от задачи классификации к задаче text-to-text. Метки one-hot были переведены в текст: [1, 0, 0, 0, 1, 0, 0] -> «гнев, грусть»
 
