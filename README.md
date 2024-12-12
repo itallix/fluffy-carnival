@@ -34,3 +34,6 @@
 1. [Paper "Emotion Classification in Short English Texts using Deep Learning Techniques"](https://arxiv.org/abs/2402.16034)
 2. [Paper "DeepEmotex: Classifying Emotion in Text Messages using Deep Transfer Learning"](https://arxiv.org/abs/2206.06775)
 3. [Семинар по классификации текстов с использованием предобученных моделей](https://www.youtube.com/watch?v=uRAsurPHycw)
+
+## Исследования
+Наши эксперименты находятся в папке [notebooks](https://github.com/itallix/fluffy-carnival/tree/main/notebooks)
