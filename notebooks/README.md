@@ -9,4 +9,6 @@
     Захотелось уйти от задачи классификации к задаче text-to-text. Метки one-hot были переведены в текст: [1, 0, 0, 0, 1, 0, 0] -> «гнев, грусть»
 
 
-2. Аугментация 5 классов за счет двойного перевода *«ru – en – ru»* - [augmentation_5_classes.ipynb](https://github.com/itallix/fluffy-carnival/blob/main/notebooks/augmentation_5_classes.ipynb)
+4. Аугментация 5 классов за счет двойного перевода *«ru – en – ru»* - [augmentation_5_classes.ipynb](https://github.com/itallix/fluffy-carnival/blob/main/notebooks/augmentation_5_classes.ipynb)
+
+5. Тестирование моделей семейства BERT на русском от ai-forever - [emotion_classification_berts.ipynb](https://github.com/itallix/fluffy-carnival/blob/main/notebooks/emotion_classification_berts.ipynb)
