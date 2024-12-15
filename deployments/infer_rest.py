@@ -11,7 +11,7 @@ import click
 @click.option(
     '--model',
     default="emotion_classifier",
-    help='Requested model name (default: 8080)'
+    help='Requested model name (default: emotion_classifier)'
 )
 @click.argument('text')
 def predict_text(port, model, text):
@@ -32,4 +32,3 @@ def predict_text(port, model, text):
 
 if __name__ == '__main__':
     predict_text()
-

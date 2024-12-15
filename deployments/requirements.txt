@@ -5,3 +5,8 @@ numpy
 transformers
 requests
 scipy
+optimum-intel
+openvino
+onnx
+onnxruntime
+tritonclient[all]
