@@ -55,4 +55,6 @@
 | ruT5-base          |222 M           |300 GB               |
 | ruT5-large         |737 M           |300 GB|              |
 
+## Финальное решение подробно описано в [final_solution](https://github.com/itallix/fluffy-carnival/blob/main/final_solution)
+
 
