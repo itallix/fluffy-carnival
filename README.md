@@ -56,5 +56,11 @@
 | ruT5-large         |737 M           |300 GB|              |
 
 ## Финальное решение подробно описано в [final_solution](https://github.com/itallix/fluffy-carnival/blob/main/final_solution)
+ Параметр | Значение |
+|----------|-----------|
+Модель| ai-forever/ruRoberta-large
+Количество экпох | 4
+Результат f1 на тесте | 0.59814
+Датасет | Аугментация 5 классов «ru–en–ru» + доп. данные от твитов
 
 
