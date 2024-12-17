@@ -16,6 +16,6 @@
 6. Исследование англоязычного датасета *GoEmotions* - [original_set_processing.ipynb](https://github.com/itallix/fluffy-carnival/blob/main/notebooks/original_set_processing.ipynb)
 7. Тестирование *baseline* решения с подбором гиперпараметров - [emotion_classification_baseline_with_hyperparameters_set.ipynb](https://github.com/itallix/fluffy-carnival/blob/main/notebooks/emotion_classification_baseline_with_hyperparameters_set.ipynb)
 
-8. Исследование влияния стоп-слов и лемматизации -  emotion_classification_berts_lemma.ipynb
+8. Исследование влияния стоп-слов и лемматизации -  [emotion_classification_berts_lemma.ipynb](https://github.com/itallix/fluffy-carnival/blob/main/notebooks/emotion_classification_berts_lemma.ipynb)
 
     На тесте результат упал с 0.59814 до 0.55345.
